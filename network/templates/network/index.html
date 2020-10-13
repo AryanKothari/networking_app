@@ -1,0 +1,31 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<h1 style="padding-top: 10px;">All Posts</h1>
+{% if user.is_authenticated %}
+<div id="new_post">
+    <h4 style="margin-left: 20px; padding-bottom: 10px;">New Post</h4>
+    <div style="margin-left: 20px;" class="form-group">
+    <form action="{% url 'create' %}" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Post"/>
+    </form>
+</div>
+</div>
+{% endif %}
+    {% for post in posts %}
+    <div id="post">
+        <h4><bold>@{{post.author}}</bold> says:</h4> <br>
+        {% if post.author == request.user %}
+        <a href="#">
+            <button>
+            EDIT
+            </button>
+        </a>
+        {% endif %}
+        <p style="margin-left: 30px; font-size: 120%;"> {{post.body}} </p> <br><br>
+        <p style="font-weight: lighter; margin-left: 30px;">{{post.creation_date}}</p>
+    </div>
+    {% endfor %}
+{% endblock %}
