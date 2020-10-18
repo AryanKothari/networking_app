@@ -22,14 +22,19 @@ p {
 
 * {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-sizing: border-box;
    }
 
-button {
+#edit {
     color: blue; 
     font-size: larger; 
     float: right; 
     margin-top: -60px; 
     font-weight: bold; 
     background-color:#90EE90;
+}
 
+#like_button {
+    border-radius: 4px;
+    background-color: transparent;
 }

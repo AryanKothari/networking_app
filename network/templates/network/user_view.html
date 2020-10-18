@@ -1,0 +1,37 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<div class="card" style="width: 18rem; margin-left: 30px; margin-top: 20px; text-align:left;">
+    <div class="card-body">
+      <h5 class="card-title" style="text-align: center; margin-left: -10px;">{{user.username}}</h5>
+      <hr>
+      <p class="card-text">Followers: {{ follower_count }}</p>
+      <p class="card-text">Following: {{ following_count }}</p>
+      {% if own_profile %}
+      {% else %}
+      {% if already_follows %}
+      <a href="{% url 'unfollow' user.username %}" class="btn btn-primary" style="width: 100%; background-color: crimson;">Unfollow</a>
+      {% else %}
+      <a href="{% url 'follow' user.username %}" class="btn btn-primary" style="width: 100%;">Follow</a>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+
+  {% for post in user.posts.all %}
+  <div id="post" style="margin-left: 375px; width: 75%; margin-top: -217px; margin-bottom: 250px;">
+    <h4> <a href="{% url 'user_view' post.author %}"><bold>@{{post.author}}</bold></a> says:</h4> <br>
+    {% if post.author == request.user %}
+    <a href="#">
+        <button>
+        EDIT
+        </button>
+    </a>
+    {% endif %}
+    <p style="margin-left: 30px; font-size: 120%;"> {{post.body}} </p> <br><br>
+    <p style="font-weight: lighter; margin-left: 30px;">{{post.creation_date}}</p>
+</div>
+  {% endfor %}
+
+
+{% endblock %}

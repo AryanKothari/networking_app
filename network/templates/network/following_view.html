@@ -1,7 +1,7 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-<h1 style="padding-top: 10px;">All Posts</h1> <br>
+<h1 style="padding-top: 10px;">Friends' Posts</h1> <br>
 {% if user.is_authenticated %}
 <div id="new_post">
     <h4 style="margin-left: 20px; padding-bottom: 10px;">New Post</h4>
@@ -19,14 +19,12 @@
         <h4 style="margin-bottom: 10px;"> <a href="{% url 'user_view' post.author %}"><bold>@{{post.author}}</bold></a> says:</h4> <br>
         {% if post.author == request.user %}
         <a href="#">
-            <button id="edit">
+            <button>
             EDIT
             </button>
         </a>
         {% endif %}
         <p style="margin-left: 30px; font-size: 120%;"> {{post.body}} </p> <br>
-        <p style="margin-left: 30px; font-size: 120%;"> &#10084;&#65039;{{post.likes.all.count}} </p> <br>
-        <button id="like_button">Like</button>
         <p style="font-weight: lighter; margin-left: 30px;">{{post.creation_date}}</p>
     </div>
     {% endfor %}
