@@ -3,6 +3,9 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+
 
 from .models import User, Post, Profile, Like
 from .forms import NewPostForm
@@ -15,6 +18,9 @@ def index(request):
         'posts': posts,
     })
 
+
+@csrf_exempt
+@login_required
 def create(request):
     if request.method == "POST":
         form = NewPostForm(request.POST)
@@ -53,6 +59,7 @@ def user_view(request, username):
         'already_follows': already_follows,
     })
 
+
 def login_view(request):
     if request.method == "POST":
 
@@ -77,6 +84,8 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
 
+@csrf_exempt
+@login_required
 def following(request):
     following = Profile.objects.get(user=request.user).following.all()
     posts = Post.objects.filter(author__in=following)
@@ -84,6 +93,7 @@ def following(request):
         'form': NewPostForm(),
         'posts': posts,
     })
+
 
 def follow(request, username):
     #add user to "following"
@@ -96,6 +106,7 @@ def follow(request, username):
     follower = User.objects.get(username=request.user.username)
     user.follower.add(follower)
     return HttpResponseRedirect(f'/user/{username}')
+
 
 def unfollow(request, username):
     #remove user to "following"
