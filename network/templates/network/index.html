@@ -30,4 +30,36 @@
         <p style="font-weight: lighter; margin-left: 30px;">{{post.creation_date}}</p>
     </div>
     {% endfor %}
+
+
+
+    <span class="current" style="float: right; margin-right: 20px; margin-top: 7px;">
+        {{ posts.number }} of {{ posts.paginator.num_pages }}.
+    </span>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if posts.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a>
+              </li>
+            {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+            {% endif %}
+
+          {% if posts.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ posts.next_page_number }}">next</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+
+
 {% endblock %}

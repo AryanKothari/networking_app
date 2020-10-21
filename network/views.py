@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 from .models import User, Post, Profile, Like
@@ -13,6 +14,9 @@ from .forms import NewPostForm
 
 def index(request):
     posts = Post.objects.all()
+    paginator = Paginator(posts,1)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
     return render(request, "network/index.html", {
         'form': NewPostForm(),
         'posts': posts,
@@ -83,6 +87,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
+
 
 @csrf_exempt
 @login_required
