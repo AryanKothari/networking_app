@@ -14,7 +14,7 @@ from .forms import NewPostForm
 
 def index(request):
     posts = Post.objects.all()
-    paginator = Paginator(posts,1)
+    paginator = Paginator(posts,10)
     page = request.GET.get('page')
     posts = paginator.get_page(page)
     return render(request, "network/index.html", {
@@ -124,6 +124,12 @@ def unfollow(request, username):
     follower = User.objects.get(username=request.user.username)
     user.follower.remove(follower)
     return HttpResponseRedirect(f'/user/{username}')
+
+@csrf_exempt
+@login_required
+def like(request):
+    pass
+
 
 def register(request):
     if request.method == "POST":

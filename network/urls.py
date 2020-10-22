@@ -14,5 +14,6 @@ urlpatterns = [
     path("register", views.register, name="register"),
 
     # API Routes
+    path("likes", views.like, name="like"),
     
 ]

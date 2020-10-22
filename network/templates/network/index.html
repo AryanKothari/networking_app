@@ -18,11 +18,8 @@
     <div id="post">
         <h4 style="margin-bottom: 10px;"> <a href="{% url 'user_view' post.author %}"><bold>@{{post.author}}</bold></a> says:</h4> <br>
         {% if post.author == request.user %}
-        <a href="#">
-            <button id="edit">
-            EDIT
-            </button>
-        </a>
+        <a href="#" style="float: right; font-weight: bolder; margin-top: -55px;">
+            Edit </a>
         {% endif %}
         <p style="margin-left: 30px; font-size: 120%;"> {{post.body}} </p> <br>
         <p style="margin-left: 30px; font-size: 120%;"> &#10084;&#65039;{{post.likes.all.count}} </p> <br>
@@ -30,15 +27,11 @@
         <p style="font-weight: lighter; margin-left: 30px;">{{post.creation_date}}</p>
     </div>
     {% endfor %}
-
-
-
-    <span class="current" style="float: right; margin-right: 20px; margin-top: 7px;">
-        {{ posts.number }} of {{ posts.paginator.num_pages }}.
-    </span>
-
     <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
+    <span class="current" style="float: right; margin-right: 60px;">
+      {{ posts.number }} - {{ posts.paginator.num_pages }}
+       </span>
+        <ul class="pagination justify-content-center" style="margin-left: 60px;">
             {% if posts.has_previous %}
             <li class="page-item">
                 <a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a>
@@ -51,7 +44,7 @@
 
           {% if posts.has_next %}
           <li class="page-item">
-            <a class="page-link" href="?page={{ posts.next_page_number }}">next</a>
+            <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
           </li>
           {% else %}
           <li class="page-item disabled">
