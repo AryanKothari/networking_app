@@ -1,6 +1,11 @@
 
 from django.urls import path
 from . import views
+from django.urls import include, path
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('', views.LikeView)
 
 urlpatterns = [
     path("", views.index, name="index"),
@@ -14,6 +19,6 @@ urlpatterns = [
     path("register", views.register, name="register"),
 
     # API Routes
-    path("likes", views.like, name="like"),
+    path("likes", include(router.urls)),
     
 ]

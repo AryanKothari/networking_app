@@ -19,18 +19,6 @@
   </div>
 
   {% for post in user.posts.all %}
-  <div id="post" style="margin-left: 375px; width: 75%; margin-top: -217px; margin-bottom: 250px;">
-    <h4> <a href="{% url 'user_view' post.author %}"><bold>@{{post.author}}</bold></a> says:</h4> <br>
-    {% if post.author == request.user %}
-    <a href="#">
-        <button>
-        EDIT
-        </button>
-    </a>
-    {% endif %}
-    <p style="margin-left: 30px; font-size: 120%;"> {{post.body}} </p> <br><br>
-    <p style="font-weight: lighter; margin-left: 30px;">{{post.creation_date}}</p>
-</div>
   {% endfor %}
 
 

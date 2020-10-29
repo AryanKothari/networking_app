@@ -26,12 +26,12 @@ p {
    }
 
 
-#like_button {
+.like_button, .unlike_button {
     border-radius: 4px;
     width: 70px;
     background-color: transparent;
     margin-left: 90px;
     position: absolute;
     margin-top: -68px;
-
 }
+

@@ -6,11 +6,16 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from rest_framework import viewsets
+from .serializers import LikeSerializer
 
 
 from .models import User, Post, Profile, Like
 from .forms import NewPostForm
 
+class LikeView(viewsets.ModelViewSet):
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
 
 def index(request):
     posts = Post.objects.all()
