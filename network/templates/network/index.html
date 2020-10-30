@@ -24,7 +24,7 @@
         <p style="margin-left: 30px; font-size: 120%;"> {{post.body}} </p> <br>
         <p id="likes_count_{{post.id}}" data-all_likes={{post.likes.all.count}} style="margin-left: 30px; font-size: 120%;"> ❤️{{post.likes.all.count}} </p> <br>
         <button class="like_button" data-post_id={{post.id}} data-user_id={{request.user.id}}>Like</button>
-        <button class="unlike_button" data-post_id={{post.id}} data-user_id={{request.user.id}} style="background-color:#54d4ff;">Unlike</button>
+        <button class="unlike_button" data-unlikeID='0' data-post_id={{post.id}} data-user_id={{request.user.id}} style="background-color:#54d4ff;">Unlike</button>
         <p style="font-weight: lighter; margin-left: 30px;">{{post.creation_date}}</p>
     </div>
     {% endfor %}

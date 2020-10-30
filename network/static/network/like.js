@@ -13,10 +13,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let post_id = e.target.dataset.post_id
     let user_id = e.target.dataset.user_id
 
-    fetch('/likes', {
+    fetch('/likes/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin" : "*", 
+        "Access-Control-Allow-Credentials" : true 
       },
       body: JSON.stringify({
         user: user_id,
@@ -25,22 +27,41 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(response => response.json())
     .then(result => {
-        console.log(result)
         let old_count = document.querySelector(`#likes_count_${post_id}`).dataset.all_likes
         old_count = parseInt(old_count)
         let new_count = old_count + 1
         document.querySelector(`#likes_count_${post_id}`).innerHTML = `❤️${new_count}`
         this.style.display = 'none'
+        document.querySelector(`#likes_count_${post_id}`).dataset.all_likes = new_count
         document.querySelector(`.unlike_button[data-post_id="${post_id}"]`).style.display = 'block'
+        document.querySelector(`.unlike_button[data-post_id="${post_id}"]`).dataset.unlikeID = result.id
     });
   }
 
   function unlike(e) {
     let post_id = e.target.dataset.post_id
-    let user_id = e.target.dataset.user_id
+    let unlikeID = e.target.dataset.unlikeID
 
+    fetch(`/likes/${unlikeID}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        "Access-Control-Allow-Origin" : "*", 
+        "Access-Control-Allow-Credentials" : true 
+       }
+    })
+    .then(result => {
+        let old_count = document.querySelector(`#likes_count_${post_id}`).dataset.all_likes
+        old_count = parseInt(old_count)
+        let new_count = old_count - 1
+        document.querySelector(`#likes_count_${post_id}`).dataset.all_likes = new_count
+        document.querySelector(`#likes_count_${post_id}`).innerHTML = `❤️${new_count}`
+        this.style.display = 'none'
+        document.querySelector(`.like_button[data-post_id="${post_id}"]`).style.display = 'block'
+    });
   }
 
   function diplayButtons() {
+    Array.from(document.querySelectorAll('.like_button')).forEach(button => button.style.display = 'block')
     Array.from(document.querySelectorAll('.unlike_button')).forEach(button => button.style.display = 'none')
   }
