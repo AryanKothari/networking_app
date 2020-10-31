@@ -7,6 +7,9 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register('likes', views.LikeView)
 
+router2 = routers.DefaultRouter()
+router2.register('posts', views.PostView)
+
 urlpatterns = [
     path("", views.index, name="index"),
     path("create", views.create, name="create"),
@@ -20,5 +23,6 @@ urlpatterns = [
 
     # API Routes
     path("", include(router.urls)),
+    path("", include(router2.urls)),
     
 ]

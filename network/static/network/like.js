@@ -62,6 +62,18 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function diplayButtons() {
+    fetch('/likes/', {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+       }
+    })
+    .then(response => response.json())
+    .then(result => {
+      result.forEach(post => {
+
+      })
+    })
     Array.from(document.querySelectorAll('.like_button')).forEach(button => button.style.display = 'block')
     Array.from(document.querySelectorAll('.unlike_button')).forEach(button => button.style.display = 'none')
   }

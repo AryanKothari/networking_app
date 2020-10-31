@@ -1,4 +1,4 @@
-#new_post, #post {
+#new_post, .post {
     border-radius: 10px;
     border: 2px solid#D3D3D3;
     padding: 15px;
@@ -35,3 +35,7 @@ p {
     margin-top: -68px;
 }
 
+.edit, .delete {
+    background: transparent;
+    border: none;
+}

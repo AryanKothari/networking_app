@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from rest_framework import viewsets
-from .serializers import LikeSerializer
+from .serializers import LikeSerializer, PostSerializer
 
 
 from .models import User, Post, Profile, Like
@@ -16,6 +16,10 @@ from .forms import NewPostForm
 class LikeView(viewsets.ModelViewSet):
     queryset = Like.objects.all()
     serializer_class = LikeSerializer
+
+class PostView(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
 def index(request):
     posts = Post.objects.all()
@@ -45,6 +49,7 @@ def create(request):
             })
     else: 
         return HttpResponseRedirect(reverse("index"))
+
 
 def user_view(request, username):
     posts = Post.objects.filter(author__username=username)

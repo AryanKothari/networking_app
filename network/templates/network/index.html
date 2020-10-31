@@ -14,20 +14,36 @@
 </div>
 </div>
 {% endif %}
+
     {% for post in posts %}
-    <div id="post">
+
+    <div class="post" data-post_id={{post.id}}>
         <h4 style="margin-bottom: 10px;"> <a href="{% url 'user_view' post.author %}"><bold>@{{post.author}}</bold></a> says:</h4> <br>
         {% if post.author == request.user %}
-        <a href="#" style="float: right; font-weight: bolder; margin-top: -55px;">
-            Edit </a>
+          <span>
+            <button class="edit" data-post_id={{post.id}} style="float: right; font-weight: bolder;  margin-right: 70px; margin-top: -55px;">Edit</button>
+            <button class="delete" data-post_id={{post.id}} style="float: right; font-weight: bolder; margin-top: -55px;">Delete</button>
+          </span>
         {% endif %}
-        <p style="margin-left: 30px; font-size: 120%;"> {{post.body}} </p> <br>
+        <p class="post_body" data-post_id={{post.id}} style="margin-left: 30px; font-size: 120%;"> {{post.body}} </p> <br>
+
+        <div class="edit-view" data-post_id={{post.id}}>
+          <form class="compose-form" >
+              <textarea class="form-control compose-body" data-post_id={{post.id}} required=True rows="5" cols="30">{{post.body}}</textarea> <br>
+              <input type="submit" value="Edit" class="btn btn-primary submit_edit" style="float: right; background-color: green;"/>
+          </form>
+      </div>
+
         <p id="likes_count_{{post.id}}" data-all_likes={{post.likes.all.count}} style="margin-left: 30px; font-size: 120%;"> ❤️{{post.likes.all.count}} </p> <br>
         <button class="like_button" data-post_id={{post.id}} data-user_id={{request.user.id}}>Like</button>
         <button class="unlike_button" data-unlikeID='0' data-post_id={{post.id}} data-user_id={{request.user.id}} style="background-color:#54d4ff;">Unlike</button>
         <p style="font-weight: lighter; margin-left: 30px;">{{post.creation_date}}</p>
     </div>
+
+
     {% endfor %}
+
+
     <nav aria-label="Page navigation example">
     <span class="current" style="float: right; margin-right: 60px;">
       {{ posts.number }} - {{ posts.paginator.num_pages }}
