@@ -14,12 +14,21 @@ from .models import User, Post, Profile, Like
 from .forms import NewPostForm
 
 class LikeView(viewsets.ModelViewSet):
-    queryset = Like.objects.all()
     serializer_class = LikeSerializer
+    def get_queryset(self):
+        queryset = Like.objects.all()
+        user = self.request.query_params.get('user', None)
+        post = self.request.query_params.get('post', None)
+        if user is not None:
+            queryset = queryset.filter(user=user)
+        if post and user is not None:
+            queryset = queryset.filter(user=user, post=post)
+        return queryset
 
 class PostView(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    
 
 def index(request):
     posts = Post.objects.all()
@@ -135,11 +144,11 @@ def unfollow(request, username):
     user.follower.remove(follower)
     return HttpResponseRedirect(f'/user/{username}')
 
-@csrf_exempt
-@login_required
-def like(request):
-    pass
 
+def get_context_data(self, *args, **kwargs):
+    ctx = super(class_name, self).get_context_data(*args, **kwargs)
+    ctx["author_id"]=self.request.user.id
+    return ctx
 
 def register(request):
     if request.method == "POST":

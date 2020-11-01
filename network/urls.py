@@ -5,10 +5,10 @@ from django.urls import include, path
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register('likes', views.LikeView)
+router.register('likes', views.LikeView, basename='likes')
 
 router2 = routers.DefaultRouter()
-router2.register('posts', views.PostView)
+router2.register('posts', views.PostView, basename='posts')
 
 urlpatterns = [
     path("", views.index, name="index"),
