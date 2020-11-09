@@ -7,14 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
       Array.from(document.querySelectorAll('.edit')).forEach(button => 
         button.onclick = editView)
 
-      Array.from(document.querySelectorAll('.compose-form')).forEach(e => {
-        document.querySelector('.compose-form').onsubmit = updatePost
-      })
+      Array.from(document.querySelectorAll('.compose-form')).forEach(form =>
+        form.onsubmit = updatePost)
     })
 
     function updatePost(e) {
       let post_id = e.target.dataset.post_id
-      alert(post_id)
       fetch(`/posts/${post_id}/`, {
         method: 'PATCH',
         headers: {

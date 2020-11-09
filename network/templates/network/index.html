@@ -29,15 +29,15 @@
         <p class="post_body" data-post_id={{post.id}} style="margin-left: 30px; font-size: 120%;"> {{post.body}} </p> <br>
 
         <div class="edit-view" data-post_id={{post.id}}>
-          <form class="compose-form" data-post_id={{post.id}} >
+          <form class="compose-form edit-form" data-post_id={{post.id}} >
               <textarea class="form-control compose-body" data-post_id={{post.id}} required=True rows="5" cols="30" style="font-size: larger; width: 90%; margin-left: 30px; margin-top:-30px">{{post.body}}</textarea> <br>
-              <input type="submit" value="Edit" class="btn btn-primary submit_edit" style="float: right; background-color: green;"/>
+              <input type="submit" value="Edit" class="btn btn-primary" style="float: right; background-color: green;"/>
           </form>
         </div>
 
         <p id="likes_count_{{post.id}}" data-all_likes={{post.likes.all.count}} style="margin-left: 30px; font-size: 120%;"> ❤️{{post.likes.all.count}} </p> <br>
         <button class="like_button" data-post_id={{post.id}} data-user_id={{request.user.id}}>Like</button>
-        <button class="unlike_button" data-post_id={{post.id}} data-user_id={{request.user.id}} style="background-color:#54d4ff;">Unlike</button>
+        <button class="unlike_button" data-post_id={{post.id}} data-user_id={{request.user.id}} style="background-color:#54d4ff; color: white;">Unlike</button>
         <p style="font-weight: lighter; margin-left: 30px;">{{post.creation_date}}</p>
     </div>
 
